@@ -1,0 +1,60 @@
+replicaCount: 1
+
+image:
+  repository: openclaw
+  tag: local
+  pullPolicy: IfNotPresent
+
+gateway:
+  bind: lan
+  port: 18789
+  bridgePort: 18790
+
+env:
+  HOME: /home/node
+  TERM: xterm-256color
+
+secret:
+  # Whether the chart should create a Secret resource
+  create: true
+  # Override to use an existing Secret (ignored when create is true)
+  name: ""
+  data:
+    OPENCLAW_GATEWAY_TOKEN: ""
+    CLAUDE_AI_SESSION_KEY: ""
+    CLAUDE_WEB_SESSION_KEY: ""
+    CLAUDE_WEB_COOKIE: ""
+
+persistence:
+  config:
+    enabled: true
+    size: 1Gi
+    storageClass: ""
+    accessModes:
+      - ReadWriteOnce
+  workspace:
+    enabled: true
+    size: 5Gi
+    storageClass: ""
+    accessModes:
+      - ReadWriteOnce
+
+service:
+  type: ClusterIP
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  hosts:
+    - host: openclaw.local
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []
+
+resources: {}
+
+nodeSelector: {}
+tolerations: []
+affinity: {}

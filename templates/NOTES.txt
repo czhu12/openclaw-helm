@@ -1,0 +1,20 @@
+OpenClaw gateway has been deployed.
+
+{{- if .Values.ingress.enabled }}
+
+Access the gateway via Ingress:
+{{- range .Values.ingress.hosts }}
+  http{{ if $.Values.ingress.tls }}s{{ end }}://{{ .host }}
+{{- end }}
+
+{{- else }}
+
+Access the gateway via port-forward:
+
+  kubectl port-forward svc/{{ include "openclaw.fullname" . }} {{ .Values.gateway.port }}:{{ .Values.gateway.port }}
+
+Then connect at: http://localhost:{{ .Values.gateway.port }}
+
+{{- end }}
+
+Bridge port: {{ .Values.gateway.bridgePort }}
