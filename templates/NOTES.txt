@@ -11,7 +11,7 @@ Access the gateway via Ingress:
 
 Access the gateway via port-forward:
 
-  kubectl port-forward svc/{{ include "openclaw.fullname" . }} {{ .Values.gateway.port }}:{{ .Values.gateway.port }}
+  kubectl port-forward svc/{{ include "openclaw.fullname" . }} -n {{ .Release.Namespace }} {{ .Values.gateway.port }}:{{ .Values.gateway.port }}
 
 Then connect at: http://localhost:{{ .Values.gateway.port }}
 
@@ -24,21 +24,21 @@ Bridge port: {{ .Values.gateway.bridgePort }}
 
 1. Run onboarding:
 
-  kubectl exec -it deploy/{{ include "openclaw.fullname" . }}-cli -- node dist/index.js onboard --no-install-daemon
+  kubectl exec -it deploy/{{ include "openclaw.fullname" . }}-cli -n {{ .Release.Namespace }} -- node dist/index.js onboard --no-install-daemon
 
 2. Add channels (examples):
 
   # WhatsApp (interactive QR login)
-  kubectl exec -it deploy/{{ include "openclaw.fullname" . }}-cli -- node dist/index.js channels login
+  kubectl exec -it deploy/{{ include "openclaw.fullname" . }}-cli -n {{ .Release.Namespace }} -- node dist/index.js channels login
 
   # Telegram
-  kubectl exec -it deploy/{{ include "openclaw.fullname" . }}-cli -- node dist/index.js channels add --channel telegram --token <BOT_TOKEN>
+  kubectl exec -it deploy/{{ include "openclaw.fullname" . }}-cli -n {{ .Release.Namespace }} -- node dist/index.js channels add --channel telegram --token <BOT_TOKEN>
 
   # Discord
-  kubectl exec -it deploy/{{ include "openclaw.fullname" . }}-cli -- node dist/index.js channels add --channel discord --token <BOT_TOKEN>
+  kubectl exec -it deploy/{{ include "openclaw.fullname" . }}-cli -n {{ .Release.Namespace }} -- node dist/index.js channels add --channel discord --token <BOT_TOKEN>
 
 3. Open a shell on the CLI pod anytime:
 
-  kubectl exec -it deploy/{{ include "openclaw.fullname" . }}-cli -- bash
+  kubectl exec -it deploy/{{ include "openclaw.fullname" . }}-cli -n {{ .Release.Namespace }} -- bash
 
 {{- end }}
