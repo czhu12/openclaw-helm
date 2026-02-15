@@ -17,3 +17,4 @@ spec:
       name: bridge
   selector:
     {{- include "openclaw.selectorLabels" . | nindent 4 }}
+    app.kubernetes.io/component: gateway

@@ -9,10 +9,12 @@ spec:
   selector:
     matchLabels:
       {{- include "openclaw.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: gateway
   template:
     metadata:
       labels:
         {{- include "openclaw.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/component: gateway
     spec:
       {{- with .Values.nodeSelector }}
       nodeSelector:
