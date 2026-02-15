@@ -1,8 +1,8 @@
 replicaCount: 1
 
 image:
-  repository: openclaw
-  tag: local
+  repository: ghcr.io/openclaw/openclaw
+  tag: main
   pullPolicy: IfNotPresent
 
 gateway:
